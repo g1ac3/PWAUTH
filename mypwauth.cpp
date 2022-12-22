@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include <conio.h>
+//#include <termios.h>
 const int N = 79;
 std::string ofile = "pw.txt";
 //パスワード入力させて入力した文字列を返す。
