@@ -21,7 +21,14 @@ std::string PWAUTH_input(){
 }
 //string型の平文のパスワードを受け取ってハッシュ化して返す。
 std::string PWAUTH_hash(std::string s){
-  return std::hash<string>()(s);
+  size_t tmp = std::hash<std::string>()(s);
+  std::string S = "";
+  while(tmp>0){
+    S += (tmp%10) + '0';
+    tmp /= 10;
+  }
+  reverse(S.begin(),S.end());
+  return S;
 }
 //パスワード変更
 void PWAUTH_change(){
