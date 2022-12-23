@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <functional>
 #include <conio.h>
 //#include <termios.h>
 const int N = 79;
@@ -20,16 +21,16 @@ std::string PWAUTH_input(){
 }
 //string型の平文のパスワードを受け取ってハッシュ化して返す。
 std::string PWAUTH_hash(std::string s){
-  const int M = 16;
-  const int s_size1 = s.size();
-  for(int i=0;i<M-s_size1;++i) s+=s[i%s_size1];
-  //std::cout<<"\n"<<s<<"\n";
-  std::vector<int> A,B;
-  for(int i=0;i<M;i++) A.emplace_back((i+1)*5);
-  for(int i=0;i<M;i++) A[i]+=(s[i]-'0');
-  for(int i=0;i<M;i++) B.emplace_back(((A[i]^A[(i+1)%M])|A[(i+2)%M])&A[(i+3)%M]);
-  std::string S;
-  for(int x:B) S+=(x%N+'0');
+  size_t tmp = std::hash<std::string>()(s);
+  std::cout<<tmp<<std::endl;
+  std::string S = "";
+  while(tmp>0){
+    S += (tmp%10) + '0';
+    tmp /= 10;
+    std::cout<<tmp<<std::endl;
+  }
+  reverse(S.begin(),S.end());
+  std::cout<<S<<std::endl;
   return S;
 }
 //パスワード変更
