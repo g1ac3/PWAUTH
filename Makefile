@@ -16,9 +16,13 @@ OBJS = $(CPP_SRCS:.cpp=.o) $(C_SRCS:.c=.o) $(BLAKE3_OPT_SRCS:.c=.o)
 # Target executable
 TARGET = mypwauth
 
-.PHONY: all clean
+.PHONY: all clean submodules
 
-all: $(TARGET)
+submodules:
+	@echo "Updating Git submodules..."
+	git submodule update --init --recursive
+
+all: clean submodules $(TARGET)
 
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
