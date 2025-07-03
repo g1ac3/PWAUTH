@@ -1,4 +1,8 @@
 #include "PWAUTH.h"
+#include <cstdio>
+#include <cstdint>
+#include "BLAKE3/c/blake3.h"
+#include <vector>
 #ifdef _WIN32
     // Windows専用の処理（例：conio.h）
     #include <conio.h>
@@ -38,13 +42,17 @@ std::string PWAUTH_input(){
 }
 //string型の平文のパスワードを受け取ってハッシュ化して返す。
 std::string PWAUTH_hash(std::string s){
-    size_t tmp = std::hash<std::string>()(s);
+    uint8_t output[BLAKE3_OUT_LEN];
+    blake3_hasher hasher;
+    blake3_hasher_init(&hasher);
+    blake3_hasher_update(&hasher, s.c_str(), s.length());
+    blake3_hasher_finalize(&hasher, output, BLAKE3_OUT_LEN);
     std::string S = "";
-    while(tmp>0){
-        S += (tmp%10) + '0';
-        tmp /= 10;
+    for (int i = 0; i < BLAKE3_OUT_LEN; i++) {
+        char hex[3];
+        sprintf(hex, "%02x", output[i]);
+        S += hex;
     }
-    reverse(S.begin(),S.end());
     return S;
 }
 //パスワード変更
