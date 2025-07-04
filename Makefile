@@ -22,7 +22,9 @@ submodules:
 	@echo "Updating Git submodules..."
 	git submodule update --init --recursive
 
-all: clean submodules $(TARGET)
+all: submodules $(TARGET)
+	@echo "Cleaning up object files..."
+	rm -f $(OBJS)
 
 $(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
