@@ -1,4 +1,5 @@
 #include "PWAUTH.h"
+#include <iostream>
 std::string ofile = "pw.txt";
 int main(){
     int t;

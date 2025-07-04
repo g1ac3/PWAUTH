@@ -1,4 +1,6 @@
 #include "PWAUTH.h"
+#include <iostream>
+#include <fstream>
 #include "BLAKE3/c/blake3.h"
 #ifdef _WIN32
     // Windows専用の処理（例：conio.h）
