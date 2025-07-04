@@ -18,15 +18,15 @@ TARGET = mypwauth
 
 .PHONY: all clean submodules
 
+# Default target
+all: $(TARGET)
+
+# Submodules
 submodules:
 	@echo "Updating Git submodules..."
 	git submodule update --init --recursive
 
-all: submodules $(TARGET)
-	@echo "Cleaning up object files..."
-	rm -f $(OBJS)
-
-$(TARGET): $(OBJS)
+$(TARGET): submodules $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
 # Rule to compile C++ source files
@@ -50,5 +50,7 @@ BLAKE3/c/blake3_sse2.o: BLAKE3/c/blake3_sse2.c
 BLAKE3/c/blake3_sse41.o: BLAKE3/c/blake3_sse41.c
 	$(CC) $(CFLAGS) -msse4.1 -c $< -o $@
 
+# Clean up generated files
 clean:
-	rm -f $(OBJS) $(TARGET) a.out
+	@echo "Cleaning up object files..."
+	rm -f $(TARGET) $(OBJS)

@@ -2,8 +2,6 @@
 #include <iostream>
 #include <fstream>
 #include <functional>
-#include <cstdio>
-#include <cstdint>
 #include "BLAKE3/c/blake3.h"
 #include <vector>
 
