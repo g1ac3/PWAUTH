@@ -1,6 +1,9 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <cstdio>
+#include <cstdint>
 #include <functional>
 //std::string PWAUTH_input();
 //std::string PWAUTH_hash(std::string);
