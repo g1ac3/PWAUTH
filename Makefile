@@ -15,7 +15,7 @@ ASSEMBLIES_DIR = assemblies
 # Object files
 OBJS = $(addprefix $(ASSEMBLIES_DIR)/, $(notdir $(CPP_SRCS:.cpp=.o))) \
        $(addprefix $(ASSEMBLIES_DIR)/, $(notdir $(C_SRCS:.c=.o))) \
-       $(addprefix $(ASSEMBLIES_DIR)/, $(notdir $(BLAKE3_O% PT_SRCS:.c=.o)))
+       $(addprefix $(ASSEMBLIES_DIR)/, $(notdir $(BLAKE3_OPT_SRCS:.c=.o)))
 
 # Target executable
 TARGET = mypwauth
@@ -23,14 +23,14 @@ TARGET = mypwauth
 .PHONY: all clean submodules
 
 # Default target
-all: $(TARGET)
+all: submodules $(TARGET)
 
 # Submodules
 submodules:
 	@echo "Updating Git submodules..."
 	git submodule update --init --recursive
 
-$(TARGET): submodules $(OBJS)
+$(TARGET): $(OBJS)
 	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
 
 $(ASSEMBLIES_DIR)/blake3.o: BLAKE3/c/blake3.c | $(ASSEMBLIES_DIR)
@@ -46,7 +46,7 @@ $(ASSEMBLIES_DIR)/%.o: %.c | $(ASSEMBLIES_DIR)
 $(ASSEMBLIES_DIR)/blake3_portable.o: BLAKE3/c/blake3_portable.c | $(ASSEMBLIES_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(ASSEMBLIES_DIR)/blake3_dispatch.o: BLAKE3/c/blake3_dispatch.c | $(ASSEMBLIES_DIR)
+$(ASSEMBLIES_DIR)/blake3_dispatch.o: BLAKE3/c/blake3_dispatch.c | $(ASSEMBLIES_.c | $(ASSEMBLIES_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(ASSEMBLIES_DIR)/blake3_avx2.o: BLAKE3/c/blake3_avx2.c | $(ASSEMBLIES_DIR)
